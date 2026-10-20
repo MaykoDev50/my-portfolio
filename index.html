@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mayko | Premium Portfolio</title>
+    
+    <!-- Google Fonts: Inter for Hebrew, Outfit for English -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        outfit: ['Outfit', 'sans-serif'],
+                    },
+                    colors: {
+                        dark: '#030014',
+                        glass: 'rgba(255, 255, 255, 0.03)',
+                        glassBorder: 'rgba(255, 255, 255, 0.08)',
+                    },
+                    animation: {
+                        'spin-slow': 'spin 15s linear infinite',
+                        'marquee': 'marquee 25s linear infinite',
+                    },
+                    keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(100%)' }, /* RTL moves opposite */
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #030014;
+            color: #ffffff;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Framer-style Glass Panel */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 2rem;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass-panel:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-4px);
+        }
+
+        /* Glowing Gradients */
+        .glow-text {
+            background: linear-gradient(135deg, #a855f7 0%, #3b82f6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 40px rgba(168, 85, 247, 0.4);
+        }
+
+        .bg-glow {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(59,130,246,0.1) 0%, rgba(10,10,10,0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Outline Text (Stroke) */
+        .text-outline {
+            color: transparent;
+            -webkit-text-stroke: 1px rgba(255, 255, 255, 0.15);
+        }
+
+        /* Intersection Observer Reveal Animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(50px) scale(0.98);
+            transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* FAQ Accordion Transitions */
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1), padding 0.5s ease;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            padding-top: 1rem;
+            padding-bottom: 1.5rem;
+        }
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #030014; }
+        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+    </style>
+</head>
+<body class="antialiased selection:bg-purple-600 selection:text-white">
+
+    <!-- Ambient Background Glow -->
+    <div class="bg-glow top-[-100px] left-[-100px]"></div>
+    <div class="bg-glow bottom-[20%] right-[-20%] bg-[radial-gradient(circle,rgba(168,85,247,0.08)_0%,rgba(10,10,10,0)_70%)]"></div>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 top-4 px-4 mix-blend-difference">
+        <div class="max-w-6xl mx-auto glass-panel !rounded-full px-6 py-4 flex items-center justify-between">
+            <div class="font-outfit font-bold text-xl tracking-widest text-white" dir="ltr">
+                MAYKO
+            </div>
+            <div class="hidden md:flex gap-8 text-sm font-medium text-gray-400">
+                <a href="#process" class="hover:text-white transition-colors">מסלול</a>
+                <a href="#portfolio" class="hover:text-white transition-colors">עבודות</a>
+                <a href="#faq" class="hover:text-white transition-colors">שאלות</a>
+            </div>
+            <a href="#contact" class="bg-white text-dark px-5 py-2 rounded-full font-bold text-sm hover:scale-105 transition-transform">
+                Let's Talk
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="min-h-screen flex flex-col items-center justify-center pt-32 px-4 relative">
+        <div class="max-w-5xl mx-auto text-center z-10 w-full">
+            <div class="reveal">
+                <span class="inline-block py-1.5 px-4 rounded-full border border-white/10 bg-white/5 text-xs tracking-widest font-outfit uppercase mb-8" dir="ltr">
+                    Available for new projects
+                </span>
+            </div>
+            
+            <h1 class="text-5xl md:text-[5.5rem] leading-[1.1] font-outfit font-black text-white mb-6 reveal" style="transition-delay: 100ms;" dir="ltr">
+                Great Code.<br>
+                <span class="text-gray-500">Speaks Without Words.</span>
+            </h1>
+
+            <div class="font-outfit font-black text-5xl md:text-8xl mt-4 mb-8 tracking-tight reveal" style="transition-delay: 200ms;" dir="ltr">
+                I am <span class="glow-text inline-block hover:scale-105 transition-transform cursor-default">Mayko</span>
+            </div>
+
+            <p class="text-lg md:text-xl text-gray-400 max-w-2xl mx-auto font-light leading-relaxed reveal" style="transition-delay: 300ms;">
+                אנחנו ב-Mayko עושים לך פיתוח שגורם לכולם להגיד 'וואו' עם סטייל, חדשנות וקוד נקי. חוויות דיגיטליות ברמת הפרימיום הגבוהה ביותר.
+            </p>
+            
+            <div class="mt-12 flex justify-center gap-6 reveal" style="transition-delay: 400ms;">
+                <a href="#portfolio" class="w-16 h-16 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-dark transition-all duration-300">
+                    <i class="fas fa-arrow-down"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section id="process" class="py-32 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="mb-20 text-center reveal">
+                <h2 class="text-3xl font-outfit text-gray-400 uppercase tracking-widest mb-2" dir="ltr">Your Path To Excellence</h2>
+                <p class="text-4xl font-bold text-white">המסלול שלי לעבודה מושלמת</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Step 1 -->
+                <div class="glass-panel p-10 relative overflow-hidden group reveal">
+                    <div class="text-8xl font-outfit font-black text-outline absolute top-4 right-4 opacity-50 group-hover:scale-110 transition-transform duration-500" dir="ltr">01</div>
+                    <div class="relative z-10 mt-16">
+                        <h3 class="text-2xl font-bold mb-4">אפיון דרישות</h3>
+                        <p class="text-gray-400 leading-relaxed">
+                            אנחנו מתחילים בהבנה עמוקה של החזון שלך, הגדרת המטרות ותכנון אסטרטגי של הארכיטקטורה כדי להבטיח בסיס יציב לפרויקט.
+                        </p>
+                    </div>
+                </div>
+                <!-- Step 2 -->
+                <div class="glass-panel p-10 relative overflow-hidden group reveal" style="transition-delay: 150ms;">
+                    <div class="text-8xl font-outfit font-black text-outline absolute top-4 right-4 opacity-50 group-hover:scale-110 transition-transform duration-500" dir="ltr">02</div>
+                    <div class="relative z-10 mt-16">
+                        <h3 class="text-2xl font-bold mb-4">פיתוח ובדיקות</h3>
+                        <p class="text-gray-400 leading-relaxed">
+                            כתיבת קוד נקי, מודרני ואופטימלי. יישום עיצוב מוקפד יחד עם בדיקות מקיפות (QA) בכל שלב כדי להבטיח ביצועים חסרי פשרות.
+                        </p>
+                    </div>
+                </div>
+                <!-- Step 3 -->
+                <div class="glass-panel p-10 relative overflow-hidden group reveal" style="transition-delay: 300ms;">
+                    <div class="text-8xl font-outfit font-black text-outline absolute top-4 right-4 opacity-50 group-hover:scale-110 transition-transform duration-500" dir="ltr">03</div>
+                    <div class="relative z-10 mt-16">
+                        <h3 class="text-2xl font-bold mb-4">מסירה סופית</h3>
+                        <p class="text-gray-400 leading-relaxed">
+                            השקת המוצר לאוויר, הדרכה על מערכות הניהול, ותמיכה מתמשכת כדי לוודא שהפרויקט שלך ממשיך להצליח ולצמוח.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="mb-16 reveal">
+                <h2 class="text-3xl font-outfit text-gray-400 uppercase tracking-widest mb-2" dir="ltr">Creating A Winning Work</h2>
+                <p class="text-4xl font-bold text-white">היתרון התחרותי שלך</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-6">
+                <div class="glass-panel p-8 reveal">
+                    <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mb-6 text-xl text-purple-400">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h3 class="font-outfit font-bold text-xl mb-2" dir="ltr">Creative Approach</h3>
+                    <p class="text-gray-400 text-sm">חשיבה מחוץ לקופסה שמובילה לפתרונות דיגיטליים ייחודיים ומותאמים אישית לצרכים שלך.</p>
+                </div>
+                <div class="glass-panel p-8 reveal" style="transition-delay: 150ms;">
+                    <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mb-6 text-xl text-blue-400">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="font-outfit font-bold text-xl mb-2" dir="ltr">Smooth Experience</h3>
+                    <p class="text-gray-400 text-sm">חווית משתמש חלקה, אנימציות עדינות וזמני טעינה מהירים במיוחד לחוויית גלישה מושלמת.</p>
+                </div>
+                <div class="glass-panel p-8 reveal" style="transition-delay: 300ms;">
+                    <div class="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center mb-6 text-xl text-pink-400">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3 class="font-outfit font-bold text-xl mb-2" dir="ltr">Lasting Partnership</h3>
+                    <p class="text-gray-400 text-sm">אנחנו לא רק בונים אתר ועוזבים. אני כאן כדי ללוות אותך גם בהמשך הדרך הטכנולוגית.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Bento Grid Section -->
+    <section id="portfolio" class="py-32 px-4">
+        <div class="max-w-6xl mx-auto">
+            <div class="mb-16 flex flex-col md:flex-row justify-between items-end gap-6 reveal">
+                <div>
+                    <h2 class="text-3xl font-outfit text-gray-400 uppercase tracking-widest mb-2" dir="ltr">Creative Portfolio</h2>
+                    <p class="text-4xl md:text-5xl font-bold text-white">פרויקטים נבחרים</p>
+                </div>
+                <a href="#" class="px-6 py-3 border border-white/20 rounded-full hover:bg-white hover:text-dark transition-colors font-medium">
+                    צפה בכל העבודות
+                </a>
+            </div>
+
+            <!-- Modified Grid for 2 Main Projects -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 h-auto md:h-[600px]">
+                
+                <!-- Main Featured Project 1: Mayko GPT -->
+                <div class="glass-panel overflow-hidden group relative reveal rounded-3xl">
+                    <img src='image_b72585.png' onerror="this.src='https://images.unsplash.com/photo-1620712943543-bcc4688e7485?q=80&w=1000&auto=format&fit=crop'" alt="Mayko GPT App" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-40 group-hover:scale-105 transition-all duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark via-dark/40 to-transparent"></div>
+                    <div class="absolute bottom-0 p-10 w-full">
+                        <div class="flex gap-2 mb-4">
+                            <span class="bg-white/10 backdrop-blur-md px-3 py-1 rounded-full text-xs font-outfit" dir="ltr">AI</span>
+                            <span class="bg-white/10 backdrop-blur-md px-3 py-1 rounded-full text-xs font-outfit" dir="ltr">Code Assistant</span>
+                        </div>
+                        <div class="flex items-center gap-3 mb-3">
+                            <img src='logo (1).png' onerror="this.src='https://cdn-icons-png.flaticon.com/512/11693/11693806.png'" alt="Mayko GPT Logo" class="w-10 h-10 rounded-full object-cover bg-white/5 p-1 backdrop-blur-sm border border-white/10">
+                            <h3 class="text-3xl md:text-4xl font-bold font-outfit tracking-wide" dir="ltr">Mayko GPT</h3>
+                        </div>
+                        <p class="text-gray-400 max-w-lg mb-6">בינה מלאכותית שעוזרת בקודים.</p>
+                        <a href="#" class="w-12 h-12 rounded-full border border-white/30 flex items-center justify-center group-hover:bg-white group-hover:text-dark transition-all">
+                            <i class="fas fa-arrow-left transform -rotate-45"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Main Featured Project 2: MaykoMusic -->
+                <div class="glass-panel overflow-hidden group relative reveal rounded-3xl" style="transition-delay: 200ms;">
+                    <!-- Local image with music-related Unsplash fallback -->
+                    <img src='maykomusic_bg.png' onerror="this.src='https://images.unsplash.com/photo-1614680376593-902f74cf0d41?q=80&w=1000&auto=format&fit=crop'" alt="MaykoMusic App" class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-40 group-hover:scale-105 transition-all duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-dark via-dark/40 to-transparent"></div>
+                    <div class="absolute bottom-0 p-10 w-full">
+                        <div class="flex gap-2 mb-4">
+                            <span class="bg-white/10 backdrop-blur-md px-3 py-1 rounded-full text-xs font-outfit" dir="ltr">Music App</span>
+                            <span class="bg-white/10 backdrop-blur-md px-3 py-1 rounded-full text-xs font-outfit" dir="ltr">Audio</span>
+                        </div>
+                        <div class="flex items-center gap-3 mb-3">
+                            <!-- Local logo with music-related Flaticon fallback -->
+                            <img src='music_logo.png' onerror="this.src='https://cdn-icons-png.flaticon.com/512/3063/3063822.png'" alt="MaykoMusic Logo" class="w-10 h-10 rounded-full object-cover bg-white/5 p-1 backdrop-blur-sm border border-white/10">
+                            <h3 class="text-3xl md:text-4xl font-bold font-outfit tracking-wide" dir="ltr">MaykoMusic</h3>
+                        </div>
+                        <p class="text-gray-400 max-w-lg mb-6">אפליקציית מוזיקה מתקדמת ועיצוב נקי.</p>
+                        <a href="#" class="w-12 h-12 rounded-full border border-white/30 flex items-center justify-center group-hover:bg-white group-hover:text-dark transition-all">
+                            <i class="fas fa-arrow-left transform -rotate-45"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="py-32 px-4">
+        <div class="max-w-3xl mx-auto">
+            <div class="mb-16 text-center reveal">
+                <h2 class="text-3xl font-outfit text-gray-400 uppercase tracking-widest mb-2" dir="ltr">Common Questions</h2>
+                <p class="text-4xl font-bold text-white">שאלות נפוצות</p>
+            </div>
+
+            <div class="space-y-4">
+                <!-- FAQ 1 -->
+                <div class="faq-item glass-panel p-6 cursor-pointer reveal">
+                    <div class="flex justify-between items-center font-bold text-lg">
+                        <span>אילו שירותים אתה מציע?</span>
+                        <i class="fas fa-chevron-down faq-icon transition-transform duration-300"></i>
+                    </div>
+                    <div class="faq-answer text-gray-400">
+                        אני מציע פיתוח אתרי אינטרנט מקצה לקצה (Full Stack), בניית דפי נחיתה אינטראקטיביים, פיתוח מערכות ניהול (SaaS) ופיתוח ממשקי משתמש (UI/UX) מורכבים בטכנולוגיות מתקדמות כמו React ו-Next.js.
+                    </div>
+                </div>
+                <!-- FAQ 2 -->
+                <div class="faq-item glass-panel p-6 cursor-pointer reveal" style="transition-delay: 100ms;">
+                    <div class="flex justify-between items-center font-bold text-lg">
+                        <span>מה נדרש ממני כלקוח?</span>
+                        <i class="fas fa-chevron-down faq-icon transition-transform duration-300"></i>
+                    </div>
+                    <div class="faq-answer text-gray-400">
+                        בשלב הראשון אני אצטרך להבין את החזון והדרישות. תצטרך לספק אפיון בסיסי או רעיון ברור, לוגו ותכנים טקסטואליים. משם, אני אקח את המושכות ואוביל את הפרויקט אל היעד.
+                    </div>
+                </div>
+                <!-- FAQ 3 -->
+                <div class="faq-item glass-panel p-6 cursor-pointer reveal" style="transition-delay: 200ms;">
+                    <div class="flex justify-between items-center font-bold text-lg">
+                        <span>תוך כמה זמן הפרויקט מסתיים?</span>
+                        <i class="fas fa-chevron-down faq-icon transition-transform duration-300"></i>
+                    </div>
+                    <div class="faq-answer text-gray-400">
+                        הזמן משתנה בהתאם למורכבות הפרויקט. דף נחיתה או אתר תדמית יכול לקחת בין שבוע לשבועיים, בעוד מערכת מורכבת או אפליקציה יכולה לקחת בין חודש למספר חודשים. אנו נגדיר לו"ז מדויק מראש.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-32 px-4 relative">
+        <div class="max-w-6xl mx-auto glass-panel p-10 md:p-20 reveal relative overflow-hidden">
+            <!-- Decorative blur inside card -->
+            <div class="absolute top-[-50%] right-[-10%] w-96 h-96 bg-purple-600/20 rounded-full blur-[100px] pointer-events-none"></div>
+            
+            <div class="grid md:grid-cols-2 gap-16 relative z-10">
+                <div>
+                    <h2 class="text-3xl font-outfit text-gray-400 uppercase tracking-widest mb-4" dir="ltr">Never Miss an Opportunity</h2>
+                    <p class="text-4xl md:text-5xl font-bold text-white mb-8">מוכנים לצאת לדרך?</p>
+                    <p class="text-gray-400 text-lg mb-10">
+                        מלאו את הפרטים בטופס או שלחו לי הודעה ישירות, ואחזור אליכם בהקדם כדי שנוכל לדבר על הפרויקט הבא שלכם.
+                    </p>
+                </div>
+                
+                <div>
+                    <form action='https://formsubmit.co/zexogtag@gmail.com' method='POST' class="space-y-6">
+                        <!-- FormSubmit Config -->
+                        <input type="hidden" name="_subject" value="הודעה חדשה מתיק העבודות - Mayko">
+                        <input type="hidden" name="_captcha" value="false">
+                        
+                        <div>
+                            <input type="text" name="name" id="name" required placeholder="שם מלא" class="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors">
+                        </div>
+                        <div>
+                            <input type="email" name="email" id="email" required placeholder="אימייל לחזרה" class="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors">
+                        </div>
+                        <div>
+                            <input type="text" name="discord" id="discord" placeholder="דיסקורד (אופציונלי)" class="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors" dir="ltr">
+                        </div>
+                        <div>
+                            <textarea name="message" id="message" required rows="4" placeholder="ספר לי על הפרויקט..." class="w-full bg-white/5 border border-white/10 rounded-xl px-5 py-4 text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors resize-none"></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-white text-dark font-bold text-lg py-4 rounded-xl hover:bg-gray-200 transition-colors flex items-center justify-center gap-2">
+                            <span>שלח הודעה</span>
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="pt-32 pb-10 overflow-hidden relative">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            
+            <!-- Huge Let's Talk Text -->
+            <div class="font-outfit font-black text-[15vw] leading-none text-outline opacity-20 cursor-default hover:opacity-100 hover:text-white hover:-webkit-text-stroke-[0px] transition-all duration-700 select-none mb-10" dir="ltr">
+                LET'S TALK
+            </div>
+
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6 border-t border-white/10 pt-10 mt-10">
+                <p class="text-gray-500 text-sm font-outfit" dir="ltr">
+                    © 2024 Mayko. All rights reserved.
+                </p>
+                <div class="flex gap-4">
+                    <a href="#" class="w-10 h-10 rounded-full glass-panel flex items-center justify-center text-white hover:bg-white hover:text-dark transition-colors"><i class="fab fa-github"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full glass-panel flex items-center justify-center text-white hover:bg-blue-500 hover:border-blue-500 transition-colors"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full glass-panel flex items-center justify-center text-white hover:bg-[#5865F2] hover:border-[#5865F2] transition-colors"><i class="fab fa-discord"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Scroll Reveal Animation Observer
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1, rootMargin: "0px 0px -50px 0px" });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // FAQ Accordion Logic
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            item.addEventListener('click', () => {
+                // Close other open items
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item && otherItem.classList.contains('active')) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                // Toggle current item
+                item.classList.toggle('active');
+            });
+        });
+
+    </script>
+</body>
+</html>
