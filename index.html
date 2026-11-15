@@ -57,6 +57,7 @@ img{display:block;max-width:100%}
 .hero p{font-size:clamp(18px,1.7vw,21px);line-height:1.65;max-width:36ch;margin-top:22px}
 .hero p.muted{color:#5d5950;margin-top:12px}
 .role{display:inline-block;margin-bottom:18px;padding:6px 14px;border-radius:999px;font-size:14px;font-weight:700;background:rgba(255,255,255,.55);border:1px solid rgba(255,255,255,.75);color:#3d3a34}
+.hero p.sum{max-width:none;font-size:15px;font-weight:700;color:#3d3a34;margin-top:18px;letter-spacing:.01em}
 .hero .links{display:flex;gap:10px;margin-top:28px;flex-wrap:wrap}
 .btn{display:inline-flex;align-items:center;gap:8px;padding:11px 22px;border-radius:999px;font-weight:600;font-size:16px;text-decoration:none;transition:transform .25s}
 .btn:hover{transform:translateY(-2px)}
@@ -130,6 +131,32 @@ img{display:block;max-width:100%}
 .chip{padding:8px 15px;border-radius:999px;background:var(--paper);border:1px solid var(--line);font-size:15px;font-weight:600;direction:ltr}
 .chip.main{background:var(--ink);color:#fff;border-color:var(--ink)}
 
+
+/* ---------- what I build ---------- */
+.svcs{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+.svc{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:26px 22px;display:flex;flex-direction:column}
+.svc-ic{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;margin-bottom:18px;color:var(--ink);
+  background:linear-gradient(145deg,#f7d9c2,#d9d3f3);box-shadow:inset 0 1px 0 rgba(255,255,255,.8)}
+.svc-ic svg{width:24px;height:24px}
+.svc h3{font-family:"Frank Ruhl Libre",serif;font-size:24px;font-weight:700;line-height:1.15;margin-bottom:8px}
+.svc p{color:#47443e;font-size:16px;line-height:1.6}
+.svc .ex{margin-top:auto;padding-top:16px;font-size:14.5px;color:var(--soft)}
+.svc .ex a{color:var(--ink);font-weight:700;text-decoration:none;border-bottom:2px solid var(--accent)}
+.incl{margin-top:16px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:30px 32px}
+.incl h3{font-family:"Frank Ruhl Libre",serif;font-size:26px;font-weight:700;margin-bottom:18px}
+.incl ul{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:18px 28px}
+.incl li{font-size:15.5px;color:#55524b;line-height:1.55;padding-inline-start:16px;position:relative}
+.incl li::before{content:"";position:absolute;inset-inline-start:0;top:9px;width:7px;height:7px;border-radius:50%;background:var(--accent)}
+.incl li b{display:block;color:var(--ink);font-size:16.5px;margin-bottom:2px}
+
+/* ---------- tools list ---------- */
+.tl{display:grid;grid-template-columns:1fr 1fr;gap:0 40px;background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:10px 32px}
+.tl div{display:grid;grid-template-columns:130px 1fr;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
+.tl div:nth-last-child(-n+2){border-bottom:0}
+.tl dt{font-weight:700;font-size:16px}
+.tl dd{color:#55524b;font-size:15.5px}
+.card,.featured{scroll-margin-top:90px}
+
 footer{margin-top:90px;border-top:1px solid var(--line);padding:24px 0 50px;display:flex;justify-content:space-between;font-size:15px;color:var(--soft)}
 footer a{text-decoration:none}
 
@@ -137,7 +164,20 @@ footer a{text-decoration:none}
 .rv{opacity:0;transform:translateY(24px);transition:opacity .8s ease,transform .8s cubic-bezier(.22,1,.36,1)}
 .rv.in{opacity:1;transform:none}
 
+@media (max-width:1000px){.svcs{grid-template-columns:1fr 1fr}.incl ul{grid-template-columns:1fr 1fr}}
 @media (max-width:860px){
+  .svcs{grid-template-columns:1fr;gap:12px}
+  .head{flex-direction:column;gap:4px}
+  .hero .links .btn{white-space:nowrap;padding:12px 16px}
+  .svc{padding:22px 20px;border-radius:22px}
+  .svc h3{font-size:22px}
+  .incl{padding:24px 20px;border-radius:22px}
+  .incl ul{grid-template-columns:1fr;gap:14px}
+  .tl{grid-template-columns:1fr;padding:4px 20px;border-radius:22px}
+  .tl div{grid-template-columns:1fr;gap:2px;padding:14px 0}
+  .tl div:nth-last-child(2){border-bottom:1px solid var(--line)}
+  .nav{gap:0}
+  .nav a{padding:7px 10px;font-size:14px}
   .hero-panel,.featured,.tools{grid-template-columns:1fr}
   .grid{grid-template-columns:1fr}
   .featured .stage{min-height:0;padding:56px 18px 22px}
@@ -196,6 +236,7 @@ footer a{text-decoration:none}
 
 <nav class="nav glass">
   <a href="#top">תדהר</a>
+  <a href="#what">מה אני עושה</a>
   <a href="#work">עבודות</a>
   <a href="#tools">כלים</a>
 </nav>
@@ -207,8 +248,10 @@ footer a{text-decoration:none}
       <h1>היי, אני תדהר</h1>
       <p>אני בונה אתרים, אפליקציות וכלים עם AI, מהרעיון הראשון ועד שאנשים משתמשים בהם.</p>
       <p class="muted">אני עושה הכול לבד: מעצב איך זה נראה, כותב את הקוד ומעלה לאינטרנט. כל פרויקט כאן התחיל מצורך אמיתי, שלי או של מישהו שאני מכיר.</p>
+      <p class="sum">אתרים · אפליקציות לטלפון · תוכנות למחשב · כלים עם AI</p>
       <div class="links">
-        <a class="btn dark" href="#work">לעבודות שלי ↓</a>
+        <a class="btn dark" href="#what">מה אני עושה ↓</a>
+        <a class="btn glass" href="#work">לעבודות שלי</a>
       </div>
     </div>
     <aside class="now glass">
@@ -221,11 +264,53 @@ footer a{text-decoration:none}
   </div>
 </header>
 
+<section class="wrap" id="what">
+  <div class="head rv"><h2>מה אני יודע לבנות</h2><span>בקצרה, בלי מילים מסובכות</span></div>
+  <div class="svcs">
+    <div class="svc rv">
+      <div class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3z"/><path d="M3 9h18"/><circle cx="6" cy="7" r=".6"/><circle cx="8.2" cy="7" r=".6"/></svg></div>
+      <h3>אתרים</h3>
+      <p>אתר לעסק, לקהילה או לאדם פרטי. נראה טוב גם במחשב וגם בטלפון, נטען מהר ועולה לאינטרנט עם כתובת משלו.</p>
+      <div class="ex">דוגמה: <a href="#p-pack">MaykoPack</a></div>
+    </div>
+    <div class="svc rv">
+      <div class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></div>
+      <h3>אפליקציות לטלפון</h3>
+      <p>אפליקציה שאפשר להתקין על המסך של הטלפון, עם הרשמה, התחברות ומידע שנשמר לכל משתמש.</p>
+      <div class="ex">דוגמה: <a href="#p-disc">DiscBeat</a>, <a href="#p-vaad">ועד בית</a></div>
+    </div>
+    <div class="svc rv">
+      <div class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg></div>
+      <h3>תוכנות למחשב</h3>
+      <p>תוכנה לווינדוס עם קובץ התקנה רגיל. כשאני מוציא גרסה חדשה, היא מתעדכנת לבד אצל כל מי שהתקין.</p>
+      <div class="ex">דוגמה: <a href="#p-oketz">Oketz</a></div>
+    </div>
+    <div class="svc rv">
+      <div class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 15.5l.7 1.8 1.8.7-1.8.7-.7 1.8-.7-1.8-1.8-.7 1.8-.7z"/></svg></div>
+      <h3>כלים עם בינה מלאכותית</h3>
+      <p>אתר או אפליקציה שמשתמשים ב-AI כדי לכתוב, לענות על שאלות או ליצור דברים לבד, בתוך המערכת שלכם.</p>
+      <div class="ex">דוגמה: <a href="#p-gpt">Mayko GPT</a></div>
+    </div>
+  </div>
+
+  <div class="incl rv">
+    <h3>מה אני עושה בכל פרויקט</h3>
+    <ul>
+      <li><b>עיצוב</b>מחליט איך כל מסך נראה, הצבעים, הגדלים והסדר</li>
+      <li><b>התאמה לטלפון</b>כל מה שאני בונה עובד טוב גם במסך קטן</li>
+      <li><b>משתמשים</b>הרשמה, התחברות, ושמירת המידע של כל אחד</li>
+      <li><b>שרת</b>החלק שרץ מאחורי הקלעים ושומר ומעבד את המידע</li>
+      <li><b>העלאה לאינטרנט</b>האתר מקבל כתובת אמיתית שאפשר לשלוח לכולם</li>
+      <li><b>שינויים ותיקונים</b>ממשיך לשפר ולעדכן גם אחרי שהכול עלה</li>
+    </ul>
+  </div>
+</section>
+
 <main class="wrap" id="work">
   <div class="head rv"><h2>עבודות</h2><span>5 פרויקטים · 2026</span></div>
 
   <!-- featured -->
-  <article class="featured rv">
+  <article class="featured rv" id="p-gpt">
     <div class="stage">
       <div class="wall" style="background:radial-gradient(circle at 20% 20%,#f4b98a,transparent 55%),radial-gradient(circle at 85% 85%,#c9b3f0,transparent 55%),#ece4d6"></div>
       <div class="note"><span class="hand">הפרויקט הכי גדול שלי עד עכשיו</span>
@@ -244,7 +329,7 @@ footer a{text-decoration:none}
   <!-- grid -->
   <div class="grid">
 
-    <article class="card rv">
+    <article class="card rv" id="p-vaad">
       <div class="stage ph">
         <div class="wall" style="background:radial-gradient(circle at 30% 25%,#c6d7ef,transparent 60%),radial-gradient(circle at 80% 90%,#e8d3b6,transparent 60%),#e7e3da"></div>
         <div class="frame phone"><img src="img/vaad.webp" alt="אפליקציית ועד בית" loading="lazy"></div>
@@ -257,7 +342,7 @@ footer a{text-decoration:none}
       </div>
     </article>
 
-    <article class="card rv">
+    <article class="card rv" id="p-disc">
       <div class="stage">
         <div class="wall" style="background:radial-gradient(circle at 70% 30%,#2bd46a,transparent 60%),radial-gradient(circle at 20% 90%,#0f4a2a,transparent 60%),#143322"></div>
         <div class="frame"><img src="img/discbeat.webp" alt="DiscBeat" loading="lazy"></div>
@@ -270,7 +355,7 @@ footer a{text-decoration:none}
       </div>
     </article>
 
-    <article class="card rv">
+    <article class="card rv" id="p-pack">
       <div class="stage">
         <div class="wall" style="background:radial-gradient(circle at 25% 30%,#1d6fa8,transparent 60%),radial-gradient(circle at 80% 80%,#6b3fa8,transparent 60%),#121a33"></div>
         <div class="frame"><img src="img/maykopack.webp" alt="MaykoPack" loading="lazy"></div>
@@ -283,7 +368,7 @@ footer a{text-decoration:none}
       </div>
     </article>
 
-    <article class="card rv">
+    <article class="card rv" id="p-oketz">
       <div class="stage">
         <div class="wall" style="background:radial-gradient(circle at 75% 25%,#bfe8cc,transparent 60%),radial-gradient(circle at 20% 85%,#e9dcc0,transparent 60%),#e5e7dc"></div>
         <div class="appwin frame" style="padding:0">
@@ -306,16 +391,19 @@ footer a{text-decoration:none}
 </main>
 
 <section class="wrap" id="tools">
-  <div class="head rv"><h2>במה אני עובד</h2></div>
-  <div class="tools rv">
-    <p>בעיקר JavaScript, עם React לממשקים ו-Node.js לשרתים. את האתרים אני מעלה ל-Vercel או ל-GitHub Pages.</p>
-    <div class="chips">
-      <span class="chip main">JavaScript</span><span class="chip main">React</span><span class="chip main">Node.js</span>
-      <span class="chip">HTML</span><span class="chip">CSS</span><span class="chip">Tailwind</span>
-      <span class="chip">Electron</span><span class="chip">PWA</span><span class="chip">Vercel</span>
-      <span class="chip">Git</span><span class="chip">Gemini API</span><span class="chip">Claude API</span>
-    </div>
-  </div>
+  <div class="head rv"><h2>הכלים שלי</h2><span>ומה כל אחד עושה</span></div>
+  <dl class="tl rv">
+      <div><dt>JavaScript</dt><dd>שפת התכנות שבה אני כותב כמעט הכול.</dd></div>
+      <div><dt>HTML ו-CSS</dt><dd>המבנה והעיצוב של כל דף: טקסט, תמונות, צבעים ואנימציות.</dd></div>
+      <div><dt>React</dt><dd>כלי לבניית מסכים שמשתנים בזמן אמת, כמו באפליקציה.</dd></div>
+      <div><dt>Node.js</dt><dd>השרת: החלק שמאחורי הקלעים, ששומר מידע ומדבר עם שירותים אחרים.</dd></div>
+      <div><dt>Tailwind</dt><dd>דרך מהירה לעצב, כך שהכול נראה מסודר ואחיד.</dd></div>
+      <div><dt>Electron</dt><dd>הופך אתר לתוכנה אמיתית שמתקינים על המחשב.</dd></div>
+      <div><dt>PWA</dt><dd>מאפשר להתקין אתר על הטלפון כמו אפליקציה.</dd></div>
+      <div><dt>Gemini ו-Claude</dt><dd>מודלים של בינה מלאכותית שאני מחבר לפרויקטים.</dd></div>
+      <div><dt>Vercel</dt><dd>המקום שבו האתרים שלי רצים באינטרנט.</dd></div>
+      <div><dt>Git</dt><dd>שומר כל גרסה של הקוד, כדי שתמיד אפשר לחזור אחורה.</dd></div>
+  </dl>
 </section>
 
 <footer class="wrap">
