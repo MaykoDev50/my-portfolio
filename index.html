@@ -156,6 +156,10 @@ img{display:block;max-width:100%}
 .tl dt{font-weight:700;font-size:16px}
 .tl dd{color:#55524b;font-size:15.5px}
 .card,.featured{scroll-margin-top:90px}
+.grid .card:last-child:nth-child(odd){grid-column:1/-1;flex-direction:row;align-items:stretch;gap:12px}
+.grid .card:last-child:nth-child(odd) .stage{flex:1.4;aspect-ratio:auto;min-height:300px}
+.grid .card:last-child:nth-child(odd) .body{flex:1;padding:26px 22px}
+.grid .card:last-child:nth-child(odd) .appwin{max-width:420px}
 
 footer{margin-top:90px;border-top:1px solid var(--line);padding:24px 0 50px;display:flex;justify-content:space-between;font-size:15px;color:var(--soft)}
 footer a{text-decoration:none}
@@ -168,6 +172,9 @@ footer a{text-decoration:none}
 @media (max-width:860px){
   .svcs{grid-template-columns:1fr;gap:12px}
   .head{flex-direction:column;gap:4px}
+  .grid .card:last-child:nth-child(odd){flex-direction:column}
+  .grid .card:last-child:nth-child(odd) .stage{min-height:0;aspect-ratio:16/11}
+  .grid .card:last-child:nth-child(odd) .body{padding:16px 8px 8px}
   .hero .links .btn{white-space:nowrap;padding:12px 16px}
   .svc{padding:22px 20px;border-radius:22px}
   .svc h3{font-size:22px}
@@ -271,7 +278,7 @@ footer a{text-decoration:none}
       <div class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5h18v14H3z"/><path d="M3 9h18"/><circle cx="6" cy="7" r=".6"/><circle cx="8.2" cy="7" r=".6"/></svg></div>
       <h3>אתרים</h3>
       <p>אתר לעסק, לקהילה או לאדם פרטי. נראה טוב גם במחשב וגם בטלפון, נטען מהר ועולה לאינטרנט עם כתובת משלו.</p>
-      <div class="ex">דוגמה: <a href="#p-pack">MaykoPack</a></div>
+      <div class="ex">דוגמה: האתר הזה</div>
     </div>
     <div class="svc rv">
       <div class="svc-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 18.5h2"/></svg></div>
@@ -307,7 +314,7 @@ footer a{text-decoration:none}
 </section>
 
 <main class="wrap" id="work">
-  <div class="head rv"><h2>עבודות</h2><span>5 פרויקטים · 2026</span></div>
+  <div class="head rv"><h2>עבודות</h2><span>4 פרויקטים · 2026</span></div>
 
   <!-- featured -->
   <article class="featured rv" id="p-gpt">
@@ -352,19 +359,6 @@ footer a{text-decoration:none}
         <h3 class="title">DiscBeat</h3>
         <p class="desc">רציתי לבדוק אם אני מצליח לבנות משהו בסגנון Spotify. יש הרשמה, ספרייה אישית, אלבומים ונגן, ואפשר להתקין אותו על הטלפון.</p>
         <div class="foot"><span class="stack">Tailwind · PWA · Vite</span></div>
-      </div>
-    </article>
-
-    <article class="card rv" id="p-pack">
-      <div class="stage">
-        <div class="wall" style="background:radial-gradient(circle at 25% 30%,#1d6fa8,transparent 60%),radial-gradient(circle at 80% 80%,#6b3fa8,transparent 60%),#121a33"></div>
-        <div class="frame"><img src="img/maykopack.webp" alt="MaykoPack" loading="lazy"></div>
-      </div>
-      <div class="body">
-        <div class="date">אוקטובר 2026</div>
-        <h3 class="title">MaykoPack</h3>
-        <p class="desc">האתר של קהילת הדיסקורד שלנו: כמה אנשים מחוברים, כמה יש בסך הכול, וכפתור להצטרף. הכי אהבתי לבנות את האור שעוקב אחרי העכבר.</p>
-        <div class="foot"><span class="stack">HTML · CSS · JavaScript</span></div>
       </div>
     </article>
 
